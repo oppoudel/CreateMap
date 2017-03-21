@@ -26,13 +26,16 @@ export const store = new Vuex.Store({
   },
   mutations: {
     ADD_LAYERS (state, layers) {
-      layers.map((layer) => {
-        state.allLayers.push({
-          id: layer.id,
-          title: layer.title,
-          selected: false
+      if (!state.allLayers.length) {
+        layers.map((layer) => {
+          state.allLayers.push({
+            id: layer.id,
+            title: layer.title,
+            tags: layer.tags,
+            selected: false
+          })
         })
-      })
+      }
     },
     SELECT_LAYER (state, layerId) {
       const layer = state.allLayers.find(layer => {
@@ -42,6 +45,7 @@ export const store = new Vuex.Store({
       const selected = {
         id: layer.id,
         title: layer.title,
+        tags: layer.tags,
         selected: true
       }
       state.selectedLayers.push(selected)

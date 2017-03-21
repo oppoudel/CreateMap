@@ -1,7 +1,6 @@
 <template>
   <div>
-    <router-link to="/" id="home" class="title">Home</router-link>
-    <div id="viewDiv" class="balt-theme">This is a Map</div>
+    <div id="viewDiv" class="balt-theme"></div>
   </div>
 </template>
 

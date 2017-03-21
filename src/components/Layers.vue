@@ -7,39 +7,58 @@
         </a>
       </div>
     </nav>
+    <div class="columns">
+      <div class="column is-half is-offset-one-quarter">
+        <p class="control has-icon has-icon-right">
+          <input type="text" class="input is-large" placeholder="Find a Layer" v-model="filterQuery">
+          <span class="icon is-medium">
+            <i class="fa fa-search"></i>
+          </span>
+        </p>
+      </div>
+    </div>
     <table class="table is-bordered">
       <tfoot>
-        <tr v-for='layer in allLayers'>
-          <th>{{layer.title}}</th>
-          <td  v-if='!layer.selected'><button class="button is-primary" @click="selectLayer(layer.id)">Add </button></td>
-          <td v-else><button class="button is-danger" @click="deSelectLayer(layer.id)">Remove</button></td>
-        </tr>
+        <app-layer v-for='layer in displayedLayers' :key='layer.id' :layerInfo='layer'></app-layer>
       </tfoot>
     </table>
    <router-link to="/map" tag="button" class='button is-large is-info' :disabled="!selectedLayers.length" exact>Create Map</router-link>
   </div>
 </template>
 <script>
+import Layer from './Layer'
 import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      filterQuery: ''
     }
   },
-  computed: mapGetters({
-    allLayers: 'getAllLayers',
-    selectedLayers: 'getSelectedLayers'
-  }),
-  methods: {
-    selectLayer (layerId) {
-      return this.$store.commit('SELECT_LAYER', layerId)
-    },
-    deSelectLayer (layerId) {
-      return this.$store.commit('DESELECT_LAYER', layerId)
+  components: {
+    'app-layer': Layer
+  },
+  computed: {
+    ...mapGetters({
+      allLayers: 'getAllLayers',
+      selectedLayers: 'getSelectedLayers'
+    }),
+    displayedLayers () {
+      const allLayers = this.allLayers
+      const filteredLayers = allLayers.filter(this.filterLayer)
+      return filteredLayers
     }
   },
   created () {
     this.$store.dispatch('loadLayers')
+  },
+  methods: {
+    filterLayer (layer) {
+      const strTags = layer.tags.join(' ').toLowerCase()
+      const lowercaseName = layer.title.toLowerCase()
+      const selection = strTags + lowercaseName
+      const lowercaseQuery = this.filterQuery.toLowerCase()
+      return selection.indexOf(lowercaseQuery) > -1
+    }
   }
 }
 </script>
