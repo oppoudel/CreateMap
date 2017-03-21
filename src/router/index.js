@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layers from '@/components/Layers'
-import 'bulma/css/bulma.css'
+import Map from '@/components/Map'
 
 Vue.use(Router)
 
@@ -10,6 +10,11 @@ export default new Router({
     {
       path: '/',
       component: Layers
+    },
+    {
+      path: '/map',
+      component: Map
     }
-  ]
+  ],
+  mode: 'history'
 })
