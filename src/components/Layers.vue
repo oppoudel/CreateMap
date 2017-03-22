@@ -1,28 +1,40 @@
 <template>
-  <div class='container'>
-    <nav class="nav">
-      <div class="nav-center">
-        <a class="nav-item">
-          <h1 class='title is-1'>Create Map</h1>
-        </a>
+  <div>
+    <nav class="nav hero is-default has-shadow">
+      <div class='container'>
+        <div class="nav-left">
+          <a class="nav-item">
+            <img src='../assets/CITY-LOGO.png' alt="Vue">
+            <h1 class='title is-3'><strong>Create Map</strong></h1>
+          </a>
+        </div>
       </div>
     </nav>
-    <div class="columns">
-      <div class="column is-half is-offset-one-quarter">
-        <p class="control has-icon has-icon-right">
-          <input type="text" class="input is-large" placeholder="Find a Layer" v-model="filterQuery">
-          <span class="icon is-medium">
-            <i class="fa fa-search"></i>
-          </span>
-        </p>
+    <div class='container'>
+      <div class="columns">
+        <div class="column is-three-quarters">
+          <p class="control has-icon has-icon-right">
+            <input type="text" class="input is-large" placeholder="Find a Layer" v-model="filterQuery">
+            <span class="icon is-medium">
+              <i class="fa fa-search"></i>
+            </span>
+          </p>
+          <p class="help is-danger" v-if="selectedLayers.length > 5">Add upto 5 layers</p>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="column is-three-quarters"> 
+          <table class="table is-bordered">
+            <tfoot>
+              <app-layer v-for='layer in displayedLayers' :key='layer.id' :layerInfo='layer'></app-layer>
+            </tfoot>
+          </table>
+        </div>
+        <div> 
+          <router-link to="/map" tag="button" class='button is-large is-info' :disabled="!selectedLayers.length || selectedLayers.length > 5" exact>Create Map</router-link>
+        </div>
       </div>
     </div>
-    <table class="table is-bordered">
-      <tfoot>
-        <app-layer v-for='layer in displayedLayers' :key='layer.id' :layerInfo='layer'></app-layer>
-      </tfoot>
-    </table>
-   <router-link to="/map" tag="button" class='button is-large is-info' :disabled="!selectedLayers.length" exact>Create Map</router-link>
   </div>
 </template>
 <script>
@@ -65,6 +77,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.nav.is-default {
+    background-color: #f5f5f5;
+    margin-bottom: 2rem;
+}
+.nav-item img {
+    max-height: 2.75rem;
+}
+h1{
+  margin-left: 1rem;
+}
+.help.is-danger{
+  text-align: center;
+}
+.button.is-large{
+  top: 20vh;
+  margin-left: 3rem;
+}
 .button{
   min-width: 100px;
 }
