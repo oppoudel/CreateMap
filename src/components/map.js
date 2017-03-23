@@ -1,25 +1,32 @@
-export const createMap = function (loader, selectedLayers) {
+import config from '@/config/config'
+export const createMap = function (loader, router) {
   const esriLoader = loader
-  let ids = []
-  esriLoader.dojoRequire(['esri/views/MapView',
+  esriLoader.dojoRequire([
+    'esri/core/urlUtils',
+    'esri/core/watchUtils',
+    'esri/views/MapView',
     'esri/Map',
+    'esri/layers/VectorTileLayer',
     'esri/layers/Layer',
     'esri/widgets/Expand',
     'esri/widgets/Legend',
     'esri/widgets/LayerList',
     'esri/widgets/Search'
-  ], (MapView, Map, Layer, Expand, Legend, LayerList, Search) => {
-    const map = new Map({
-      basemap: 'topo'
+  ], (urlUtils, watchUtils, MapView, Map, VectorTileLayer, Layer, Expand, Legend, LayerList, Search) => {
+    const urlObject = urlUtils.urlToObject(window.location.href)
+    const center = (urlObject.query.center.split(',')).map(element => parseFloat(element))
+    const ids = (urlObject.query.ids.split(','))
+    const zoom = urlObject.query.zoom
+    const map = new Map()
+    const tileLyr = new VectorTileLayer({
+      url: config.tileLayerURL
     })
+    map.add(tileLyr)
     const view = new MapView({
       map: map,
       container: 'viewDiv',
-      zoom: 12,
-      center: [-76.6152, 39.28945]
-    })
-    selectedLayers.forEach((element) => {
-      ids.push(element.id)
+      zoom: zoom,
+      center: center
     })
     ids.forEach(function (id) {
       Layer.fromPortalItem({
@@ -60,6 +67,11 @@ export const createMap = function (loader, selectedLayers) {
     view.ui.add(searchWidget, {
       position: 'top-left',
       index: 0
+    })
+    watchUtils.whenTrue(view, 'stationary', () => {
+      let center = [view.center.longitude.toFixed(3), view.center.latitude.toFixed(3)].toString()
+      let zoom = view.zoom
+      router.push({name: 'map', query: {zoom: zoom, ids: ids.join(','), center: center}})
     })
   })
 }

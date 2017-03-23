@@ -23,15 +23,16 @@
         </div>
       </div>
       <div class="columns">
-        <div class="column is-three-quarters"> 
+        <div class="column is-three-quarters">
           <table class="table is-bordered">
             <tfoot>
               <app-layer v-for='layer in displayedLayers' :key='layer.id' :layerInfo='layer'></app-layer>
             </tfoot>
           </table>
         </div>
-        <div> 
-          <router-link to="/map" tag="button" class='button is-large is-info' :disabled="!selectedLayers.length || selectedLayers.length > 5" exact>Create Map</router-link>
+        <div>
+          <router-link :to="{ name: 'map', query: {zoom: 12, ids: layerIds.join(','), center: '-76.615,39.289'}}"
+          tag="button" class='button is-large is-info' :disabled="!selectedLayers.length || selectedLayers.length > 5" exact>Create Map</router-link>
         </div>
       </div>
     </div>
@@ -58,6 +59,11 @@ export default {
       const allLayers = this.allLayers
       const filteredLayers = allLayers.filter(this.filterLayer)
       return filteredLayers
+    },
+    layerIds () {
+      let ids = []
+      this.selectedLayers.forEach((element) => ids.push(element.id))
+      return ids
     }
   },
   created () {

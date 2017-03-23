@@ -24,12 +24,12 @@ export default {
         if (err) {
           console.error(err)
         }
-        createMap(esriLoader, this.selectedLayers)
+        createMap(esriLoader, this.$router)
       }, {
         url: 'https://js.arcgis.com/4.3/'
       })
     } else {
-      createMap(esriLoader, this.selectedLayers)
+      createMap(esriLoader, this.$router)
     }
   }
 }

@@ -13,7 +13,8 @@ export default new Router({
     },
     {
       path: '/map',
-      component: Map
+      component: Map,
+      name: 'map'
     }
   ],
   mode: 'history'
