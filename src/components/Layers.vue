@@ -3,10 +3,10 @@
     <nav class="nav hero is-default has-shadow">
       <div class='container'>
         <div class="nav-left">
-          <a class="nav-item">
+          <div class="nav-item">
             <img src='../assets/CITY-LOGO.png' alt="Vue">
             <h1 class='title is-3'><strong>Create Map</strong></h1>
-          </a>
+          </div>
         </div>
       </div>
     </nav>
