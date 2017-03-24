@@ -1,5 +1,6 @@
 import config from '@/config/config'
-export const createMap = function (loader, router) {
+import { store } from '@/store/store'
+export const createMap = function (loader, router, title) {
   const esriLoader = loader
   esriLoader.dojoRequire([
     'esri/core/urlUtils',
@@ -71,7 +72,7 @@ export const createMap = function (loader, router) {
     watchUtils.whenTrue(view, 'stationary', () => {
       let center = [view.center.longitude.toFixed(3), view.center.latitude.toFixed(3)].toString()
       let zoom = view.zoom
-      router.push({name: 'map', query: {zoom: zoom, ids: ids.join(','), center: center}})
+      router.push({name: 'map', query: {mapTitle: store.state.route.query.mapTitle, zoom: zoom, ids: ids.join(','), center: center}})
     })
   })
 }

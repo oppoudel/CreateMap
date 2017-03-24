@@ -31,7 +31,7 @@
           </table>
         </div>
         <div>
-          <router-link :to="{ name: 'map', query: {zoom: 12, ids: layerIds.join(','), center: '-76.615,39.289'}}"
+          <router-link :to="{ name: 'map', query: {mapTitle: 'Give Your Map a Title', zoom: 12, ids: layerIds.join(','), center: '-76.615,39.289'}}"
           tag="button" class='button is-large is-info' :disabled="!selectedLayers.length || selectedLayers.length > 5" exact>Create Map</router-link>
         </div>
       </div>

@@ -12,7 +12,8 @@ export const store = new Vuex.Store({
   },
   getters: {
     getAllLayers: state => state.allLayers,
-    getSelectedLayers: state => state.selectedLayers
+    getSelectedLayers: state => state.selectedLayers,
+    getRouterQuery: state => state.route.query
   },
   actions: {
     loadLayers ({ commit }) {
