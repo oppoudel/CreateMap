@@ -1,4 +1,3 @@
-import config from '@/config/config'
 import { store } from '@/store/store'
 export const createMap = function (loader, router, title) {
   const esriLoader = loader
@@ -7,22 +6,19 @@ export const createMap = function (loader, router, title) {
     'esri/core/watchUtils',
     'esri/views/MapView',
     'esri/Map',
-    'esri/layers/VectorTileLayer',
     'esri/layers/Layer',
     'esri/widgets/Expand',
     'esri/widgets/Legend',
     'esri/widgets/LayerList',
     'esri/widgets/Search'
-  ], (urlUtils, watchUtils, MapView, Map, VectorTileLayer, Layer, Expand, Legend, LayerList, Search) => {
+  ], (urlUtils, watchUtils, MapView, Map, Layer, Expand, Legend, LayerList, Search) => {
     const urlObject = urlUtils.urlToObject(window.location.href)
     const center = (urlObject.query.center.split(',')).map(element => parseFloat(element))
     const ids = (urlObject.query.ids.split(','))
     const zoom = urlObject.query.zoom
-    const map = new Map()
-    const tileLyr = new VectorTileLayer({
-      url: config.tileLayerURL
+    const map = new Map({
+      basemap: 'topo-vector'
     })
-    map.add(tileLyr)
     const view = new MapView({
       map: map,
       container: 'viewDiv',

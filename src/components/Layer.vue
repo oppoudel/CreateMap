@@ -22,4 +22,7 @@
 .button{
   min-width: 100px;
 }
+tr>td {
+  text-align: center;
+}
 </style>

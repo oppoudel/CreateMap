@@ -67,6 +67,7 @@ export default {
     border: 0;
     background: transparent;
     font-weight: normal;
+    width: 100%;
   }
   #home {
     position: fixed;
