@@ -42,7 +42,7 @@ export default {
         }
         createMap(esriLoader, this.$router, this.routerQuery.mapTitle)
       }, {
-        url: 'https://js.arcgis.com/4.3/'
+        url: 'https://js.arcgis.com/4.4/'
       })
     } else {
       createMap(esriLoader, this.$router, this.routerQuery.mapTitle)
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 <style scoped>
-  @import url('https://js.arcgis.com/4.3/esri/themes/light/main.css');
+  @import url('https://js.arcgis.com/4.4/esri/themes/light/main.css');
   .nav.is-default {
     background-color: #f5f5f5;
     margin-bottom: 2rem;
@@ -60,7 +60,7 @@ export default {
     align-items: center;
   }
   .nav-item img {
-      max-height: 2.75rem;
+      max-height: 2.2rem;
   }
   input {
     margin-left: 1rem;
