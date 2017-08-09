@@ -19,7 +19,7 @@ import * as esriLoader from 'esri-loader'
 import { createMap } from './esrimap'
 import { mapGetters } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       mapTitle: 'Create Map'
     }
@@ -29,12 +29,12 @@ export default {
     routerQuery: 'getRouterQuery'
   }),
   methods: {
-    updateTitle (value) {
+    updateTitle(value) {
       let title = value
-      this.$router.push({name: 'map', query: {mapTitle: title, zoom: this.routerQuery.zoom, ids: this.routerQuery.ids, center: this.routerQuery.center}})
+      this.$router.push({ name: 'map', query: { mapTitle: title, zoom: this.routerQuery.zoom, ids: this.routerQuery.ids, center: this.routerQuery.center } })
     }
   },
-  mounted () {
+  mounted() {
     if (!esriLoader.isLoaded()) {
       esriLoader.bootstrap((err) => {
         if (err) {
@@ -42,8 +42,8 @@ export default {
         }
         createMap(esriLoader, this.$router, this.routerQuery.mapTitle)
       }, {
-        url: 'https://js.arcgis.com/4.3/'
-      })
+          url: 'https://js.arcgis.com/4.3/'
+        })
     } else {
       createMap(esriLoader, this.$router, this.routerQuery.mapTitle)
     }
@@ -51,34 +51,39 @@ export default {
 }
 </script>
 <style scoped>
-  @import url('https://js.arcgis.com/4.3/esri/themes/light/main.css');
-  .nav.is-default {
-    background-color: #f5f5f5;
-    margin-bottom: 2rem;
-  }
-  .nav-left{
-    align-items: center;
-  }
-  .nav-item img {
-      max-height: 2.75rem;
-  }
-  input {
-    margin-left: 1rem;
-    border: 0;
-    background: transparent;
-    font-weight: normal;
-    width: 100%;
-  }
-  #home {
-    position: fixed;
-    top : 30px;
-    z-index: 10;
-  }
-  #viewDiv {
-    position: absolute;
-    top: 3.5rem;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
+@import url('https://js.arcgis.com/4.3/esri/themes/light/main.css');
+.nav.is-default {
+  background-color: #f5f5f5;
+  margin-bottom: 2rem;
+}
+
+.nav-left {
+  align-items: center;
+}
+
+.nav-item img {
+  max-height: 2.75rem;
+}
+
+input {
+  margin-left: 1rem;
+  border: 0;
+  background: transparent;
+  font-weight: normal;
+  width: 100%;
+}
+
+#home {
+  position: fixed;
+  top: 30px;
+  z-index: 10;
+}
+
+#viewDiv {
+  position: absolute;
+  top: 3.5rem;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 </style>

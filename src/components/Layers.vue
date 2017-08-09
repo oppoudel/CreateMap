@@ -16,8 +16,8 @@
           <p class="control has-icon has-icon-right">
             <input type="text" class="input is-large" placeholder="Find a Layer" v-model="filterQuery">
             <span class="icon is-medium">
-              <i class="fa fa-search"></i>
-            </span>
+                <i class="fa fa-search"></i>
+              </span>
           </p>
           <p class="help is-danger" v-if="selectedLayers.length > 5">Add upto 5 layers</p>
         </div>
@@ -31,8 +31,7 @@
           </table>
         </div>
         <div>
-          <router-link :to="{ name: 'map', query: {mapTitle: 'Give Your Map a Title', zoom: 12, ids: layerIds.join(','), center: '-76.615,39.289'}}"
-          tag="button" class='button is-large is-info' :disabled="!selectedLayers.length || selectedLayers.length > 5" exact>Create Map</router-link>
+          <router-link :to="{ name: 'map', query: {mapTitle: 'Give Your Map a Title', zoom: 12, ids: layerIds.join(','), center: '-76.615,39.289'}}" tag="button" class='button is-large is-info' :disabled="!selectedLayers.length || selectedLayers.length > 5" exact>Create Map</router-link>
         </div>
       </div>
     </div>
@@ -42,7 +41,7 @@
 import Layer from './Layer'
 import { mapGetters } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       filterQuery: ''
     }
@@ -55,22 +54,22 @@ export default {
       allLayers: 'getAllLayers',
       selectedLayers: 'getSelectedLayers'
     }),
-    displayedLayers () {
+    displayedLayers() {
       const allLayers = this.allLayers
       const filteredLayers = allLayers.filter(this.filterLayer)
       return filteredLayers
     },
-    layerIds () {
+    layerIds() {
       let ids = []
       this.selectedLayers.forEach((element) => ids.push(element.id))
       return ids
     }
   },
-  created () {
+  created() {
     this.$store.dispatch('loadLayers')
   },
   methods: {
-    filterLayer (layer) {
+    filterLayer(layer) {
       const strTags = layer.tags.join(' ').toLowerCase()
       const lowercaseName = layer.title.toLowerCase()
       const selection = strTags + lowercaseName
@@ -84,23 +83,28 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .nav.is-default {
-    background-color: #f5f5f5;
-    margin-bottom: 2rem;
+  background-color: #f5f5f5;
+  margin-bottom: 2rem;
 }
+
 .nav-item img {
-    max-height: 2.75rem;
+  max-height: 2.75rem;
 }
-h1{
+
+h1 {
   margin-left: 1rem;
 }
-.help.is-danger{
+
+.help.is-danger {
   text-align: center;
 }
-.button.is-large{
+
+.button.is-large {
   top: 20vh;
   margin-left: 3rem;
 }
-.button{
+
+.button {
   min-width: 100px;
 }
 </style>
